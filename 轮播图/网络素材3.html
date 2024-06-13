@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinite Scrolling Carousel</title>
+  <style>
+    .carousel {
+      position: relative;
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.05s linear;
+    }
+    .carousel-item {
+      min-width: 25%;
+      box-sizing: border-box;
+    }
+    .carousel-item img {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <div class="carousel-track">
+      <div class="carousel-item"><img src="image1.jpg" alt="Image 1"></div>
+      <div class="carousel-item"><img src="image2.jpg" alt="Image 2"></div>
+      <div class="carousel-item"><img src="image3.jpg" alt="Image 3"></div>
+      <div class="carousel-item"><img src="image4.jpg" alt="Image 4"></div>
+      <div class="carousel-item"><img src="image5.jpg" alt="Image 5"></div>
+      <div class="carousel-item"><img src="image6.jpg" alt="Image 6"></div>
+      <div class="carousel-item"><img src="image7.jpg" alt="Image 7"></div>
+      <div class="carousel-item"><img src="image8.jpg" alt="Image 8"></div>
+    </div>
+  </div>
+
+  <script>
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    let position = 0;
+    let slideWidth = slides[0].getBoundingClientRect().width;
+
+    // 复制图片实现无缝滚动
+    slides.forEach(slide => {
+      const clone = slide.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    function moveCarousel() {
+      position -= 10; // 调整这个值可以改变滚动速度
+      track.style.transform = `translateX(${position}px)`;
+
+      // 检查是否已经滚动到第一组图片的末尾
+      if (Math.abs(position) >= slideWidth * slides.length) {
+        // 重置位置，实现无缝滚动
+        position = 0;
+        track.style.transition = 'none'; // 禁用过渡效果
+        track.style.transform = `translateX(${position}px)`;
+        requestAnimationFrame(() => {
+          track.style.transition = 'transform 0.05s linear'; // 重新启用过渡效果
+        });
+      }
+
+      requestAnimationFrame(moveCarousel);
+    }
+
+    moveCarousel();
+  </script>
+</body>
+</html>
