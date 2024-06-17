@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码片段</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel.js"></script>
+    <!-- 需求说明，页面显示一下4个电影信息，默认让第一个电影的名字颜色为红色，当点击其他电影名字时，只有点击的电影名字会变红 -->
+    <script type="text/babel">
+
+        class App extends React.Component {
+
+            constructor() {
+                super()
+
+                this.state = {
+                    movies: ["夏洛特烦恼", "西虹市首富", "飞驰人生", "虎虎生威"],
+                }
+            }
+            render() {
+                return (
+                    <div>
+                        <ul>
+                        </ul>
+                    </div>
+                )
+ 
+            }
+
+        }
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+
+        root.render(<App />)
+    </script>
+
+</body>
+
+</html>
